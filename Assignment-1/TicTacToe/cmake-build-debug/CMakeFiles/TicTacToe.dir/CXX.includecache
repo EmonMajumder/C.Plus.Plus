@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+E:/C++/Assignment-1/TicTacToe/main.cpp
+iostream
+-
+random
+-
+cstdlib
+-
+ctime
+-
+string
+-
+stdlib.h
+-
+
