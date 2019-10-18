@@ -1,4 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" E:\C++\Assignment-1\TicTacToe
--- Configuring done
--- Generating done
--- Build files have been written to: E:/C++/Assignment-1/TicTacToe/cmake-build-debug
