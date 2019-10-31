@@ -2,7 +2,6 @@
 // Created by W0411567 on 10/31/2019.
 //
 #include <iostream>
-
 #include <cstdio>
 #include "Student.h"
 using namespace std;
@@ -14,26 +13,31 @@ Student::Student()
     this->courseList = NULL;
 }
 
-Student::Student(string Name, int numCourses, string* courseList)
+Student::Student(string Name, int numCourses, string *courseL)
 {
     this->Name = Name;
     this->numCourses = numCourses;
-    this->courseList = courseList;
+    this->courseList = new string[numCourses];
+    *courseList = *courseL;
 }
-Student::Student(Student& Studentin)
+Student::Student(const Student& Studentin)
 {
-    this->Name = Studentin.GetName();
-    this->numCourses = Studentin.GetnumCourse();
-    this->courseList = Studentin.GetcourseList();
-    Studentin.~Student();
+    Name = Studentin.Name;
+    numCourses = Studentin.numCourses;
+    for(int i=0;i<Studentin.courseList->size();i++)
+    {
+        courseList[i]=Studentin.courseList[i];
+    }
+    cout << "----------------------------------------- Copy constructor Fired ---------------------------------------" << endl;
 }
 
 Student::~Student()
 {
     if(this->courseList!=NULL)
     {
-        delete [] this-> courseList;
+        delete [] courseList;
     }
+    cout << "----------------------------------------- Destructor Fired !!!! ----------------------------------------" << endl;
 }
 
 Student Student::TakeInput()
@@ -58,8 +62,8 @@ Student Student::TakeInput()
             cout << "Invalid input" << endl;
         }
     }
-
-    while(true)
+    bool loopbreaker = true;
+    while(loopbreaker)
     {
         while(true)
         {
@@ -73,6 +77,13 @@ Student Student::TakeInput()
             else
             {
                 cout << "Invalid input." << endl;
+                cout << "Want do leave?(Y/N):" ;
+                cin >> response;
+                if(response != 'N')
+                {
+                    loopbreaker = false;
+                    break;
+                }
             }
         }
         cout << "More Course?(Y/N):";
@@ -94,3 +105,51 @@ Student Student::TakeInput()
     student.numCourses = i+1;
     return student;
 }
+
+Student& Student::operator = (const Student& Studentin)
+{
+    Studentin.~Student();
+    Name = Studentin.Name;
+    numCourses = Studentin.numCourses;
+    for(int i=0;i<Studentin.courseList->size();i++)
+    {
+        courseList[i]=Studentin.courseList[i];
+    }
+    cout << "----------------------------------------- Assignment operator Fired !!!! ----------------------------------------" << endl;
+}
+
+ostream& operator << (ostream &out, Student &Studentin)
+{
+    out << "Name :" << Studentin.Name << endl;
+    for(int i=0;i<Studentin.numCourses;i++)
+    {
+        out << "Course Name: "<< Studentin.courseList[i] << endl;
+    }
+    return out;
+}
+
+void Student::EmptyArray()
+{
+    this->numCourses=0;
+    this->courseList=NULL;
+}
+
+
+
+string Student::GetName()
+{
+    return Name;
+}
+
+int Student::GetnumCourse()
+{
+    return numCourses;
+}
+
+string* Student::GetcourseList()
+{
+    return courseList;
+}
+
+
+
