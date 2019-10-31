@@ -10,7 +10,7 @@ Student::Student()
 {
     this->Name = "";
     this->numCourses = 0;
-    this->courseList = NULL;
+    this->courseList = new string[numCourses];
 }
 
 Student::Student(string Name, int numCourses, string *courseL)
@@ -40,21 +40,19 @@ Student::~Student()
     cout << "----------------------------------------- Destructor Fired !!!! ----------------------------------------" << endl;
 }
 
-Student Student::TakeInput()
+void Student::TakeInput()
 {
-    Student student;
     string CourseName;
     string studentName;
     int i =0;
     char response;
-
     while(true)
     {
         cout << "Your Name:";
         cin >> studentName;
         if(studentName != "")
         {
-            student.Name = studentName;
+            Name = studentName;
             break;
         }
         else
@@ -71,7 +69,7 @@ Student Student::TakeInput()
             cin >> CourseName;
             if(CourseName != "")
             {
-                student.courseList[i] = CourseName;
+                courseList[i] = CourseName;
                 break;
             }
             else
@@ -102,13 +100,13 @@ Student Student::TakeInput()
             i++;
         }
     }
-    student.numCourses = i+1;
-    return student;
+    numCourses = i+1;
 }
 
-Student& Student::operator = (const Student& Studentin)
+Student Student::operator = (const Student& Studentin)
 {
     Studentin.~Student();
+
     Name = Studentin.Name;
     numCourses = Studentin.numCourses;
     for(int i=0;i<Studentin.courseList->size();i++)
@@ -116,6 +114,7 @@ Student& Student::operator = (const Student& Studentin)
         courseList[i]=Studentin.courseList[i];
     }
     cout << "----------------------------------------- Assignment operator Fired !!!! ----------------------------------------" << endl;
+    return *this;
 }
 
 ostream& operator << (ostream &out, Student &Studentin)

@@ -12,17 +12,17 @@ class Student {
 private:
     string Name;
     int numCourses;
-    string *courseList =new string[numCourses];
+    string *courseList;
 
 public:
     Student();
     Student(string Name, int numCourses, string Courses[]);
     Student(const Student& Studentin);
-    Student& operator = (const Student& Studentin);
+    Student operator = (const Student& Studentin);
     friend ostream& operator << (ostream& output, Student& Studentin);
     ~Student();
 
-    Student TakeInput ();
+    void TakeInput ();
     void EmptyArray();
     string GetName();
     int GetnumCourse();
