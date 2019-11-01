@@ -43,42 +43,45 @@ Student::~Student()
 
 void Student::TakeInput()
 {
-    string CourseName;
     string studentName;
+    string CourseName;
     int i = 0;
-    string response;
     regex r (R"(^\S+(\s?\S+)*$)");
+
+    cout << "Your Name:";
     while(true)
     {
-        cout << "Your Name:";
-        cin >> studentName;
-        if(regex_match(studentName,r))
+        if(!(cin >> studentName))
         {
-            Name = studentName;
-            break;
+            cout << "Invalid Input" << endl;
+            cout << "Your Name:";
+            cin.clear();
         }
         else
-        {
-            cout << "Invalid input" << endl;
-        }
+            break;
     }
+    this->Name=studentName;
 
     while(true)
     {
         cout << "Course Name:" ;
-        cin >> CourseName;
-        if(CourseName == "quit")
+        if(!(cin >> CourseName))
         {
-            break;
-        }
-        else if(regex_match(CourseName,r))
-        {
-            courseList[i] = CourseName;
-            i++;
+            cout << "Invalid Input" << endl;
+            cout << "Course Name:";
+            cin.clear();
         }
         else
         {
-            cout << "Invalid Input" << endl;
+            if(CourseName == "quit")
+            {
+                break;
+            }
+            else
+            {
+                courseList[i] = CourseName;
+                i++;
+            }
         }
     }
     numCourses = i;
@@ -134,4 +137,30 @@ void Student::SetName(string Name)
     this->Name = Name;
 }
 
+void Student::SetnumCourse (int num)
+{
+    this->numCourses = num;
+}
 
+void Student::SetcourseList (string* courseList)
+{
+    this->courseList = courseList;
+}
+
+//Operator function to take input a string and validate the input.
+bool operator >> (istream &in, string &str)
+{
+    string userinput;
+    regex strvalid("^\\S+(\\s?\\S+)*$"); //Regex for Valid string
+    in >> userinput;
+    //Regex validation for valid string
+    if (regex_match(userinput, strvalid))
+    {
+        str = userinput;
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}

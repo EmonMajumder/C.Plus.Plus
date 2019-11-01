@@ -7,7 +7,6 @@
 #include <string>
 using namespace std;
 
-
 class Student {
 private:
     string Name;
@@ -20,8 +19,8 @@ public:
     Student(const Student& Studentin);
     void operator = (const Student& Studentin);
     friend ostream& operator << (ostream& output, Student& Studentin);
+    friend bool operator >> (istream &in, string &str);
     ~Student();
-
     void TakeInput ();
     void EmptyArray();
     string GetName();
