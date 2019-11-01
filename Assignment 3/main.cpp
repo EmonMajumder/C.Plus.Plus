@@ -13,16 +13,17 @@ int main() {
         cout << student1;
         Student student2 = student1;
 
-        cout << "Your Name:";
-        while(true)
-        {
-            if(!(cin >> studentName)) {
-                cout << "Invalid Input" << endl;
-                cout << "Your Name:";
-                cin.clear();
-            } else
-                break;
-        }
+//        cout << "Your Name:";
+//        while(true)
+//        {
+//            if(!(cin >> studentName)) {
+//                cout << "Invalid Input" << endl;
+//                cout << "Your Name:";
+//                cin.clear();
+//            } else
+//                break;
+//        }
+        student2.TakeInput();
 
         student2.SetName(studentName);
         cout << student2;

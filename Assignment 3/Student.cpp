@@ -7,6 +7,7 @@
 #include "Student.h"
 using namespace std;
 
+//Default constructor
 Student::Student()
 {
     this->Name = "";
@@ -14,6 +15,7 @@ Student::Student()
     this->courseList = new string[999];
 }
 
+//Another constructor
 Student::Student(string Name, int numCourses, string *courseL)
 {
     this->Name = Name;
@@ -21,6 +23,8 @@ Student::Student(string Name, int numCourses, string *courseL)
     this->courseList = new string[numCourses];
     *courseList = *courseL;
 }
+
+//Copy Constructor
 Student::Student(const Student& Studentin)
 {
     this->Name = Studentin.Name;
@@ -32,6 +36,7 @@ Student::Student(const Student& Studentin)
     cout << "----------------------------------------- Copy constructor Fired ---------------------------------------" << endl;
 }
 
+//Destructor
 Student::~Student()
 {
     if(this->courseList!=NULL)
@@ -41,6 +46,7 @@ Student::~Student()
     cout << "----------------------------------------- Destructor Fired !!!! ----------------------------------------" << endl;
 }
 
+//Function for all inputs
 void Student::TakeInput()
 {
     string studentName;
@@ -87,6 +93,7 @@ void Student::TakeInput()
     numCourses = i;
 }
 
+// "=" operator overload function
 void Student::operator = (const Student& Studentin)
 {
     delete[] this->courseList;
@@ -97,9 +104,10 @@ void Student::operator = (const Student& Studentin)
     {
         this->courseList[i]=Studentin.courseList[i];
     }
-    cout << "----------------------------------------- Assignment operator Fired !!!! -----------------------------------" << endl;
+    cout << "-------------------------------------- Assignment operator Fired !!!! ----------------------------------" << endl;
 }
 
+//Output  operator overload
 ostream& operator << (ostream &out, Student &Studentin)
 {
     out << "Name :" << Studentin.Name << endl;
@@ -110,38 +118,45 @@ ostream& operator << (ostream &out, Student &Studentin)
     return out;
 }
 
+//Function to make the string array null
 void Student::EmptyArray()
 {
     this->numCourses=0;
     this->courseList=NULL;
-    cout << "----------------------------------------- Empty fired ----------------------------------------- " <<endl;
+    cout << "----------------------------------------- Empty fired !!! ----------------------------------------- " <<endl;
 }
 
+//Accessor
 string Student::GetName()
 {
     return Name;
 }
 
+//Accessor
 int Student::GetnumCourse()
 {
     return numCourses;
 }
 
+//Accessor
 string* Student::GetcourseList()
 {
     return courseList;
 }
 
+//Mutator
 void Student::SetName(string Name)
 {
     this->Name = Name;
 }
 
+//Mutator
 void Student::SetnumCourse (int num)
 {
     this->numCourses = num;
 }
 
+//Mutator
 void Student::SetcourseList (string* courseList)
 {
     this->courseList = courseList;
