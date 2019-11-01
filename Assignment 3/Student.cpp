@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <regex>
 #include "Student.h"
+#include <string>
 using namespace std;
 
 //Default constructor
@@ -43,7 +44,7 @@ Student::~Student()
     {
         delete [] courseList;
     }
-    cout << "----------------------------------------- Destructor Fired !!!! ----------------------------------------" << endl;
+    cout <<"---------------------------------------- Destructor Fired !!!! ---------------------------------------"<< endl;
 }
 
 //Function for all inputs
@@ -51,42 +52,66 @@ void Student::TakeInput()
 {
     string studentName;
     string CourseName;
-    int i = 0;
+    bool leave = false;
     regex r (R"(^\S+(\s?\S+)*$)");
+    int i = 0;
 
-    cout << "Your Name:";
+    cout << "Name can not contain blankspaces at the begining or end." <<endl;
     while(true)
     {
-        if(!(cin >> studentName))
+        cout << "Your Name:";
+        getline(cin,studentName);
+        if (regex_match(studentName, r))
         {
-            cout << "Invalid Input" << endl;
-            cout << "Your Name:";
-            cin.clear();
-        }
-        else
             break;
-    }
-    this->Name=studentName;
-
-    while(true)
-    {
-        cout << "Course Name:" ;
-        if(!(cin >> CourseName))
-        {
-            cout << "Invalid Input" << endl;
-            cout << "Course Name:";
-            cin.clear();
         }
         else
         {
-            if(CourseName == "quit")
+            if(studentName=="")
             {
-                break;
+                cout << "Please input your name." <<endl;
             }
             else
             {
-                courseList[i] = CourseName;
-                i++;
+                cout << "Name can not contain blankspaces at the begining or end." <<endl;
+                cin.clear();
+            }
+        }
+    }
+    this->Name=studentName;
+
+    cout << "Type 'Quit' for course name to end Course entry and continue." <<endl;
+    cout << "Name can not contain blankspaces at the begining or end." <<endl;
+    while(!leave)
+    {
+        while(true)
+        {
+            cout << "Course Name:";
+            getline(cin,CourseName);
+            if (regex_match(CourseName, r))
+            {
+                if(CourseName == "quit")
+                {
+                    leave=true;
+                    break;
+                }
+                else
+                {
+                    courseList[i] = CourseName;
+                    i++;
+                }
+            }
+            else
+            {
+                if(studentName=="")
+                {
+                    cout << "Please input a course name." <<endl;
+                }
+                else
+                {
+                    cout << "Course Name can not contain blankspaces at the begining or end." <<endl;
+                    cin.clear();
+                }
             }
         }
     }
@@ -94,7 +119,7 @@ void Student::TakeInput()
 }
 
 // "=" operator overload function
-void Student::operator = (const Student& Studentin)
+Student Student::operator = (const Student& Studentin)
 {
     delete[] this->courseList;
     this->courseList = new string[Studentin.numCourses];
@@ -105,6 +130,7 @@ void Student::operator = (const Student& Studentin)
         this->courseList[i]=Studentin.courseList[i];
     }
     cout << "-------------------------------------- Assignment operator Fired !!!! ----------------------------------" << endl;
+    return *this;
 }
 
 //Output  operator overload
@@ -162,20 +188,3 @@ void Student::SetcourseList (string* courseList)
     this->courseList = courseList;
 }
 
-//Operator function to take input a string and validate the input.
-bool operator >> (istream &in, string &str)
-{
-    string userinput;
-    regex strvalid("^\\S+(\\s?\\S+)*$"); //Regex for Valid string
-    in >> userinput;
-    //Regex validation for valid string
-    if (regex_match(userinput, strvalid))
-    {
-        str = userinput;
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-}

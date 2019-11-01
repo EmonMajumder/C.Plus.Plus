@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/cygdrive/i/C++/C++ Repository/Assignment 3/Student.cpp
+E:/C++/C++ Repository/Assignment 3/Student.cpp
 iostream
 -
 cstdio
@@ -14,9 +14,11 @@ cstdio
 regex
 -
 Student.h
-/cygdrive/i/C++/C++ Repository/Assignment 3/Student.h
+E:/C++/C++ Repository/Assignment 3/Student.h
+string
+-
 
-/cygdrive/i/C++/C++ Repository/Assignment 3/Student.h
+E:/C++/C++ Repository/Assignment 3/Student.h
 string
 -
 

@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/cygdrive/i/C++/C++ Repository/Assignment 3/Student.cpp" "/cygdrive/i/C++/C++ Repository/Assignment 3/cmake-build-debug/CMakeFiles/Assignment_3.dir/Student.cpp.o"
-  "/cygdrive/i/C++/C++ Repository/Assignment 3/main.cpp" "/cygdrive/i/C++/C++ Repository/Assignment 3/cmake-build-debug/CMakeFiles/Assignment_3.dir/main.cpp.o"
+  "E:/C++/C++ Repository/Assignment 3/Student.cpp" "E:/C++/C++ Repository/Assignment 3/cmake-build-debug/CMakeFiles/Assignment_3.dir/Student.cpp.obj"
+  "E:/C++/C++ Repository/Assignment 3/main.cpp" "E:/C++/C++ Repository/Assignment 3/cmake-build-debug/CMakeFiles/Assignment_3.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

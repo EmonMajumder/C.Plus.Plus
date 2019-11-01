@@ -20,7 +20,7 @@ class Student {
         Student();
         Student(string Name, int numCourses, string Courses[]);
         Student(const Student& Studentin);
-        void operator = (const Student& Studentin);
+        Student operator = (const Student& Studentin);
         friend ostream& operator << (ostream& output, Student& Studentin);
         friend bool operator >> (istream &in, string &str);
         ~Student();
