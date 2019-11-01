@@ -12,13 +12,13 @@ class Student {
 private:
     string Name;
     int numCourses;
-    string *courseList;
+    string* courseList = new string[999];
 
 public:
     Student();
     Student(string Name, int numCourses, string Courses[]);
     Student(const Student& Studentin);
-    Student operator = (const Student& Studentin);
+    void operator = (const Student& Studentin);
     friend ostream& operator << (ostream& output, Student& Studentin);
     ~Student();
 
@@ -31,7 +31,5 @@ public:
     void SetnumCourse(int num);
     void SetcourseList(string* courseList);
 };
-
-
 
 #endif //ASSIGNMENT_3_STUDENT_H
