@@ -2,12 +2,14 @@
 // Created by W0411567 on 11/14/2019.
 //
 #include <iostream>
+#include <fstream>
 #include <regex>
 #include <string>
+#include "Validateinput.h"
 using namespace std;
 
 //Function for user input and  validationg filename
-string Validate(string *ask,string *errormessage, regex *r)
+string ValidateInputFilename(string *ask,string *errormessage, regex *r)
 {
     string value;
     regex rex (R"(^\S+(\s\S+)*((\.cpp)|(\.txt))$)");
@@ -24,6 +26,44 @@ string Validate(string *ask,string *errormessage, regex *r)
             if(!regex_match(value,rex))
             {
                 value+=".cpp";
+            }
+            break;
+        }
+        else
+        {
+            //Check if no input given.
+            if(value.empty())
+            {
+                cout << "Please input a filename." <<endl;
+                cin.clear();
+            }
+            else
+            {
+                cout << *errormessage << endl;
+                cin.clear();
+            }
+        }
+    }
+    return value;
+}
+
+string ValidateOutputFilename(string *ask,string *errormessage, regex *r)
+{
+    string value;
+    regex rout (R"(^\S+(\s\S+)*\.html$)");
+
+    //While loop for continually asking filename for invalid input
+    while(true)
+    {
+        cout << *ask;
+        getline(cin,value);
+
+        //Regex comparism
+        if (regex_match(value, *r))
+        {
+            if(!regex_match(value,rout))
+            {
+                value+=".html";
             }
             break;
         }
@@ -93,4 +133,89 @@ string Getoutputfilename(string *inputfilename)
     str+=".html";
 
     return str;
+}
+
+string Readfile(string *inputfileName)
+{
+    ifstream inStream;
+    string fname(*inputfileName);
+    char next;
+    string nextstr;
+    string content;
+    //Custom Error
+    Err customerror;
+
+    try
+    {
+        //Open the file to read
+        inStream.open(fname.c_str());
+
+        if (!inStream.fail( ))
+        {
+            //Start getting characters from inputfile
+            inStream.get(next);
+
+            //Loop for getting all characters from input file until end of file is reached.
+            while (!inStream.eof()) {
+
+                //Call to function Replace to check if it is replacable character and replace.
+                nextstr = Replace(&next);
+
+                //Add to string.
+                content += nextstr;
+
+                //Get the next character from inputfile
+                inStream.get(next);
+            }
+        }
+        else
+        {
+            //If error happens to open the file to write, throw custom error.
+            throw customerror;
+        }
+    }
+    catch(Err customerror)
+    {
+        cout << customerror.message << endl;
+        exit(1);
+    }
+
+    //Close input file
+    inStream.close( );
+
+    return content;
+}
+
+void Writefile(string *filecontentstring, string *outfileName)
+{
+    ofstream outStream;
+    string outputfileName(*outfileName);
+
+    //Library error hanler from ifstream and ofstream
+    outStream.exceptions(ofstream::failbit|ofstream::badbit);
+
+    try
+    {
+        //Open Output file for writing.
+        outStream.open(outputfileName.c_str( ),ios::app);
+
+        //Write <PRE> to output file
+        outStream << "<PRE>\n";
+
+        //Write string to file
+        outStream << *filecontentstring;
+
+        //Write </PRE> to output file
+        outStream << "\n</PRE>";
+    }
+    catch(ofstream::failure e)
+    {
+        cerr << e.what();
+
+        //Exit the program.
+        exit(1);
+    }
+
+    //Close the file after write
+    outStream.close();
 }

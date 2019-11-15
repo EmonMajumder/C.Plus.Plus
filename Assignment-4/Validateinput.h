@@ -5,6 +5,7 @@
 #ifndef ASSIGNMENT_4_VALIDATEINPUT_H
 #define ASSIGNMENT_4_VALIDATEINPUT_H
 #include <iostream>
+#include <fstream>
 #include <regex>
 using namespace std;
 
@@ -15,9 +16,12 @@ struct Err
     Err() :  message("Error!!! Could not open file to read."){}
 };
 
-string Validate(string *ask,string *errormessage,  regex *r);
+string ValidateInputFilename(string *ask,string *errormessage,  regex *r);
+string ValidateOutputFilename(string *ask,string *errormessage, regex *r);
 string Replace (char *c);
 string Getoutputfilename(string *inputfilename);
+string Readfile(string *inputfilename);
+void Writefile(string *filecontentstring, string *outfileName);
 
 
 
