@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/i/C++/C++ Repository/Assignment-4/Validateinput.h
+iostream
+-
+regex
+-
+
+/cygdrive/i/C++/C++ Repository/Assignment-4/main.cpp
+iostream
+-
+fstream
+-
+cstdlib
+-
+regex
+-
+Validateinput.h
+/cygdrive/i/C++/C++ Repository/Assignment-4/Validateinput.h
+
