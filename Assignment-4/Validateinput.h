@@ -12,7 +12,7 @@ using namespace std;
 struct Err
 {
     const  char* message;
-    Err() :  message("Error!!! Could not write to file."){}
+    Err() :  message("Error!!! Could not open file to read."){}
 };
 
 string Validate(string *ask,string *errormessage,  regex *r);

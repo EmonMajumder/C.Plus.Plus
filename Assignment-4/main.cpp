@@ -30,32 +30,22 @@ int main() {
         //Function call for user input for filename.
         inputfileName = Validate(&ask,&errormessage,&r);
 
-        //Library error hanler from ifstream and ofstream
-        inStream.exceptions(ifstream::failbit|ifstream::badbit);
+        //Open the file to read
+        inStream.open(inputfileName.c_str());
 
-        try
+        if (!inStream.fail( ))
         {
-            //Open the file to read
-            inStream.open(inputfileName.c_str( ));
-        }
-        catch(ifstream::failure e)
-        {
-            cerr << e.what();
+            //Function Call for getting output file name
+            outputfileName = Getoutputfilename(&inputfileName);
 
-            //Exit the program.
-            exit(1);
-        }
+            //Library error hanler from ifstream and ofstream
+            outStream.exceptions(ofstream::failbit|ofstream::badbit);
 
-        //Function Call for getting output file name
-        outputfileName = Getoutputfilename(&inputfileName);
-
-        try
-        {
-            //Open Output file for writing.
-            outStream.open(outputfileName.c_str( ),ios::app);
-
-            if (!outStream.fail( ))
+            try
             {
+                //Open Output file for writing.
+                outStream.open(outputfileName.c_str( ),ios::app);
+
                 //Write <PRE> to output file
                 outStream << pre;
 
@@ -74,25 +64,31 @@ int main() {
                     //Get the next character from inputfile
                     inStream.get(next);
                 }
-
                 outStream << endpre;
             }
-            else
+            catch(ofstream::failure e)
             {
-                //If error happens to open the file to write, throw custom error.
-                throw customerror;
+                cerr << e.what();
+
+                //Exit the program.
+                exit(1);
             }
         }
-        catch(Err customerror)
+        else
         {
-            cout << customerror.message << endl;
-            exit(1);
+            //If error happens to open the file to write, throw custom error.
+            throw customerror;
         }
-        //Close output file
-        outStream.close( );
-
         //Close input file
         inStream.close( );
+
+        //Close output file
+        outStream.close( );
+    }
+    catch(Err customerror)
+    {
+        cout << customerror.message << endl;
+        exit(1);
     }
     //Default error thrown to this catch block.
     catch (...)
