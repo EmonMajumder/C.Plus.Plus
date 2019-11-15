@@ -29,6 +29,8 @@ int main() {
         //Function Call for getting output file name
         //outputfileName = Getoutputfilename(&inputfileName);
 
+        cout << "For Output html filenamem, filename with '.html' or without'.html' both are accepted.\n"<< endl;
+
         //Ask user for Output file Name
         outputfileName = ValidateOutputFilename(&askout,&errormessage,&r);
 
