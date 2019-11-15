@@ -12,6 +12,7 @@ using namespace std;
 string ValidateInputFilename(string *ask,string *errormessage, regex *r)
 {
     string value;
+    ifstream inStream;
     regex rex (R"(^\S+(\s\S+)*((\.cpp)|(\.txt))$)");
 
     //While loop for continually asking filename for invalid input
@@ -27,7 +28,18 @@ string ValidateInputFilename(string *ask,string *errormessage, regex *r)
             {
                 value+=".cpp";
             }
-            break;
+
+            inStream.open(value.c_str());
+            if (!inStream.fail( ))
+            {
+                inStream.close();
+                break;
+            }
+            else
+            {
+                cout << "File was not found. Please Check file name." << endl;
+                cin.clear();
+            }
         }
         else
         {
@@ -179,6 +191,10 @@ string Readfile(string *inputfileName)
         cout << customerror.message << endl;
         exit(1);
     }
+    catch (...)
+    {
+        cout << "Error!!!" << endl;
+    }
 
     //Close input file
     inStream.close( );
@@ -214,6 +230,10 @@ void Writefile(string *filecontentstring, string *outfileName)
 
         //Exit the program.
         exit(1);
+    }
+    catch (...)
+    {
+        cout << "Error!!!" << endl;
     }
 
     //Close the file after write

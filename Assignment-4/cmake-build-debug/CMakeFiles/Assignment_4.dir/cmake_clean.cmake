@@ -1,8 +1,9 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Assignment_4.dir/main.cpp.o"
-  "CMakeFiles/Assignment_4.dir/Validateinput.cpp.o"
+  "CMakeFiles/Assignment_4.dir/main.cpp.obj"
+  "CMakeFiles/Assignment_4.dir/Validateinput.cpp.obj"
   "Assignment_4.pdb"
   "Assignment_4.exe"
+  "Assignment_4.exe.manifest"
   "libAssignment_4.dll.a"
 )
 
