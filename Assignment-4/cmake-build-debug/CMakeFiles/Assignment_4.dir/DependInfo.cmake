@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "E:/C++/C++ Repository/Assignment-4/Validateinput.cpp" "E:/C++/C++ Repository/Assignment-4/cmake-build-debug/CMakeFiles/Assignment_4.dir/Validateinput.cpp.obj"
-  "E:/C++/C++ Repository/Assignment-4/main.cpp" "E:/C++/C++ Repository/Assignment-4/cmake-build-debug/CMakeFiles/Assignment_4.dir/main.cpp.obj"
+  "/cygdrive/i/C++/C++ Repository/Assignment-4/Validateinput.cpp" "/cygdrive/i/C++/C++ Repository/Assignment-4/cmake-build-debug/CMakeFiles/Assignment_4.dir/Validateinput.cpp.o"
+  "/cygdrive/i/C++/C++ Repository/Assignment-4/main.cpp" "/cygdrive/i/C++/C++ Repository/Assignment-4/cmake-build-debug/CMakeFiles/Assignment_4.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
