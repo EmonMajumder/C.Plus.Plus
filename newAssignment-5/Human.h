@@ -7,15 +7,19 @@
 
 
 #include "Organism.h"
+#include "City.h"
 #include <string>
 
+class City;
 class Human : public Organism
 {
 public:
     Human();
     Human(int x, int y);
+    Human(int x, int y, int movecount);
+
     virtual ~Human();
-    void move(int x, int y);
+    void move();
 };
 
 

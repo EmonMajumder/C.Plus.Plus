@@ -7,13 +7,16 @@
 
 #include "Organism.h"
 
+
+class City;
 class Zombie : public Organism
 {
 public:
     Zombie();
     Zombie(int x, int y);
+    Zombie(int x, int y, int movecount);
     virtual ~Zombie();
-    void move(int x, int y);
+    void move();
 };
 
 #endif //NEWASSIGNMENT_5_ZOMBIE_H

@@ -4,8 +4,11 @@
 
 #include "Zombie.h"
 #include "GameSpecs.h"
+#include <vector>
+#include <algorithm>
 
 using namespace std;
+
 
 Zombie::Zombie()
 {
@@ -25,13 +28,23 @@ Zombie::Zombie(int x, int y)
     this->symbol = ZOMBIE_CH;
 }
 
+Zombie::Zombie(int x, int y, int movecount)
+{
+    this->x = x;
+    this->y = y;
+    this->moved = false;
+    this->movecount = 0;
+    this->symbol = ZOMBIE_CH;
+}
+
 
 Zombie::~Zombie()
 {
 
 }
 
-void Zombie::move(int x, int y)
+void Zombie::move()
 {
-    movecount++;
+
 }
+

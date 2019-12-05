@@ -4,6 +4,9 @@
 
 #include "Human.h"
 #include "GameSpecs.h"
+#include "City.h"
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -25,12 +28,25 @@ Human::Human(int x, int y)
     this->symbol = HUMAN_CH;
 }
 
+Human::Human(int x, int y,int movecount)
+{
+    this->x = x;
+    this->y = y;
+    this->moved = false;
+    this->movecount = movecount;
+    this->symbol = HUMAN_CH;
+}
+
 Human::~Human()
 {
 
 }
 
-void Human::move(int x, int y)
+void Human::move()
 {
-    movecount++;
+    if(moved = true)
+    {
+        movecount++;
+        moved = false;
+    }
 }

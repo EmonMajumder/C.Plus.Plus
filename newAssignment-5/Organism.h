@@ -7,7 +7,9 @@
 
 #include <string>
 
+
 using namespace std;
+
 
 class Organism
 {
@@ -24,9 +26,9 @@ public:
 public:
     Organism();
     Organism( int x, int y,bool moved, string symbol, int movecount);
-    virtual ~Organism();
 
-    virtual void move();
+    virtual ~Organism() = 0;
+    virtual void move() = 0;
     //virtual void spawn() = 0;
     //virtual int getSpecies() = 0; //this could also be coded concrete here
     //virtual void getPosition() = 0;
