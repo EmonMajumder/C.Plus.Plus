@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <chrono>
 #include <random>
+#include <iostream>
 
 City city;
 int gridleft1 = GRIDSIZE*GRIDSIZE/4; //100
@@ -102,17 +103,254 @@ void initializecity()
     }
 }
 
+int *nextmovelocationforhuman(int x,int y)
+{
+    vector<int> abailableadjacentlocations;
+    int adjacentlocationnum = 0;
+    static int location[2];
+    location[0] = GRIDSIZE+1;
+    location[1] = GRIDSIZE+1;
+
+    for (int m = -1; m < 2; m++)
+    {
+        for (int n = -1; n < 2; n++)
+        {
+            adjacentlocationnum++;
+
+            if (x + m >= 0 && x + m < GRIDSIZE && y + n >= 0 && y + n < GRIDSIZE)
+            {
+                if (city.getOrganism(x + m, y + n) == nullptr && adjacentlocationnum % 2 == 0)
+                {
+                    abailableadjacentlocations.push_back(adjacentlocationnum);
+                }
+            }
+        }
+    }
+
+    if (!abailableadjacentlocations.empty())
+    {
+        unsigned seed = chrono::system_clock::now().time_since_epoch().count();//create random seed using system clock
+        shuffle(abailableadjacentlocations.begin(), abailableadjacentlocations.end(), default_random_engine(seed));
+
+        switch (abailableadjacentlocations.front()) {
+            case 1: {
+                location[0] = x - 1;
+                location[1] = y - 1;
+                break;
+            }
+            case 2: {
+                location[0] = x - 1;
+                location[1] = y;
+                break;
+            }
+            case 3: {
+                location[0] = x - 1;
+                location[1] = y + 1;
+                break;
+            }
+            case 4: {
+                location[0] = x;
+                location[1] = y - 1;
+                break;
+            }
+            case 6: {
+                location[0] = x;
+                location[1] = y + 1;
+                break;
+            }
+            case 7: {
+                location[0] = x + 1;
+                location[1] = y - 1;
+                break;
+            }
+            case 8: {
+                location[0] = x + 1;
+                location[1] = y;
+                break;
+            }
+            case 9: {
+                location[0] = x + 1;
+                location[1] = y + 1;
+                break;
+            }
+        }
+    }
+
+    abailableadjacentlocations.clear();
+
+    return location;
+}
+
+int *nextmovelocationforzombie(int x, int y)
+{
+    vector<int> abailableadjacentlocations;
+    vector<int> abailableadjacentlocationswithhuman;
+    int adjacentlocationnum = 0;
+    static int location[2];
+    location[0] = GRIDSIZE+1;
+    location[1] = GRIDSIZE+1;
+
+
+    for (int m = -1; m < 2; m++)
+    {
+        for (int n = -1; n < 2; n++)
+        {
+            adjacentlocationnum++;
+
+            if (x + m >= 0 && x + m < GRIDSIZE && y + n >= 0 && y + n < GRIDSIZE)
+            {
+                if (city.getOrganism(x + m, y + n) == nullptr)
+                {
+                    abailableadjacentlocations.push_back(adjacentlocationnum);
+                }
+            }
+        }
+    }
+
+    if (!abailableadjacentlocations.empty())
+    {
+        unsigned seed = chrono::system_clock::now().time_since_epoch().count();//create random seed using system clock
+        shuffle(abailableadjacentlocations.begin(), abailableadjacentlocations.end(), default_random_engine(seed));
+
+        switch (abailableadjacentlocations.front()) {
+            case 1: {
+                location[0] = x - 1;
+                location[1] = y - 1;
+                break;
+            }
+            case 2: {
+                location[0] = x - 1;
+                location[1] = y;
+                break;
+            }
+            case 3: {
+                location[0] = x - 1;
+                location[1] = y + 1;
+                break;
+            }
+            case 4: {
+                location[0] = x;
+                location[1] = y - 1;
+                break;
+            }
+            case 6: {
+                location[0] = x;
+                location[1] = y + 1;
+                break;
+            }
+            case 7: {
+                location[0] = x + 1;
+                location[1] = y - 1;
+                break;
+            }
+            case 8: {
+                location[0] = x + 1;
+                location[1] = y;
+                break;
+            }
+            case 9: {
+                location[0] = x + 1;
+                location[1] = y + 1;
+                break;
+            }
+        }
+    }
+
+
+
+    abailableadjacentlocations.clear();
+
+    return location;
+}
+
+void addhuman()
+{
+    if(grid[i][j]->moved)
+    {
+        grid[k][l]->move();
+        if(grid[k][l]->symbol == "O" && grid[k][l]->movecount == 3)
+        {
+            //create a new human
+            positionnum = 0;
+            positions.clear();
+            int c = 0;
+            int d = 0;
+            for(int m=-1;m<2;m++)
+            {
+                for(int n=-1;n<2;n++)
+                {
+                    positionnum++;
+                    if(k+m>=0 && k+m<GRIDSIZE && l+n>=0 && l+n<GRIDSIZE)
+                    {
+                        if(grid[k+m][l+n] == NULL)
+                        {
+                            positions.push_back(positionnum);
+                        }
+                    }
+                }
+            }
+
+            random_shuffle ( positions.begin(), positions.end() );
+
+            if(positions.size()>0)
+            {
+                switch (positions.front()) {
+                    case 1: {
+                        c = k - 1;
+                        d = l - 1;
+                        break;
+                    }
+                    case 2: {
+                        c = k - 1;
+                        break;
+                    }
+                    case 3: {
+                        c = k - 1;
+                        d = l + 1;
+                        break;
+                    }
+                    case 4: {
+                        d = l - 1;
+                        break;
+                    }
+                    case 6: {
+                        d = l + 1;
+                        break;
+                    }
+                    case 7: {
+                        c = k + 1;
+                        d = l - 1;
+                        break;
+                    }
+                    case 8: {
+                        c = k + 1;
+                        break;
+                    }
+                    case 9: {
+                        c = k + 1;
+                        d = l + 1;
+                        break;
+                    }
+                }
+            }
+            grid[c][d] = (Organism*)new Human(c,d);
+        }
+        else if(grid[i][j]->symbol == "Z")
+        {
+            Zombietocreate++;
+        }
+    }
+}
+
 void movecity()
 {
     gridlocationnum =0;
-    vector<int> abailableadjacentlocations;
-    int adjacentlocationnum = 0;
-
-    int newXposition = 0;
-    int newYposition = 0;
+    int newIposition = 0;
+    int newJposition = 0;
     int counter = 0;
     int humantocreate = 0;
     int Zombietocreate = 0;
+    int *nextmove;
 
 
     for(int i=0; i < GRIDSIZE ; i++)
@@ -125,183 +363,25 @@ void movecity()
             {
                 if(!city.getOrganism(i,j)->moved)
                 {
-                    adjacentlocationnum = 0;
-
-                    for(int m=-1;m<2;m++)
+                    if(city.getOrganism(i,j)->symbol == "O")
                     {
-                        for(int n=-1;n<2;n++)
+                        nextmove = nextmovelocationforhuman(i,j);
+                        newIposition = *(nextmove+0);
+                        newJposition = *(nextmove+1);
+                        if(newIposition<GRIDSIZE)
                         {
-                            adjacentlocationnum++;
-
-                            if(i+m>=0 && i+m<GRIDSIZE && j+n>=0 && j+n<GRIDSIZE)
-                            {
-                                if(city.getOrganism(i+m,j+n) == nullptr)
-                                {
-                                    if(city.getOrganism(i,j)->symbol == "O")
-                                    {
-                                        if(adjacentlocationnum%2 == 0)
-                                        {
-                                            abailableadjacentlocations.push_back(adjacentlocationnum);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        abailableadjacentlocations.push_back(adjacentlocationnum);
-                                    }
-                                }
-                            }
+                            city.setOrganism((Organism*)new Human(newIposition,newJposition,city.getOrganism(i,j)->movecount+1),newIposition,newJposition);
+                            city.getOrganism(newIposition,newJposition)->moved = true;
+                            city.setOrganism(nullptr,i,j);
                         }
                     }
-
-
-                    if(!abailableadjacentlocations.empty())
+                    else if(city.getOrganism(i,j)->symbol == "Z")
                     {
-                        unsigned seed = chrono::system_clock::now().time_since_epoch().count();//create random seed using system clock
-                        shuffle ( abailableadjacentlocations.begin(), abailableadjacentlocations.end(), default_random_engine(seed));
-
-                        switch (abailableadjacentlocations.front())
-                        {
-                            case 1:
-                            {
-                                newYposition = i-1;
-                                newXposition = j-1;
-                                break;
-                            }
-                            case 2:
-                            {
-                                newYposition = i-1;
-                                newXposition = j;
-                                break;
-                            }
-                            case 3:
-                            {
-                                newYposition = i-1;
-                                newXposition = j+1;
-                                break;
-                            }
-                            case 4:
-                            {
-                                newYposition = i;
-                                newXposition = j-1;
-                                break;
-                            }
-                            case 6:
-                            {
-                                newYposition = i;
-                                newXposition = j+1;
-                                break;
-                            }
-                            case 7:
-                            {
-                                newYposition = i+1;
-                                newXposition = j-1;
-                                break;
-                            }
-                            case 8:
-                            {
-                                newYposition = i+1;
-                                newXposition = j;
-                                break;
-                            }
-                            case 9:
-                            {
-                                newYposition = i+1;
-                                newXposition = j+1;
-                                break;
-                            }
-                        }
-
-                        if(city.getOrganism(i,j)->symbol == "O")
-                        {
-                            city.setOrganism((Organism*)new Human(newYposition,newXposition,city.getOrganism(i,j)->movecount),newYposition,newXposition);
-                        }
-                        else if(city.getOrganism(i,j)->symbol == "Z")
-                        {
-                            city.setOrganism((Organism*)new Zombie(newYposition,newXposition,city.getOrganism(i,j)->movecount),newYposition,newXposition);
-                        }
-
-                        city.getOrganism(newYposition,newXposition)->moved = true;
-
+                        nextmove = nextmovelocationforzombie(i,j);
+                        newIposition = *(nextmove+0);
+                        newJposition = *(nextmove+1);
+                        city.setOrganism((Organism*)new Zombie(newIposition,newJposition,city.getOrganism(i,j)->movecount+1),newIposition,newJposition);
                         city.setOrganism(nullptr,i,j);
-
-                        abailableadjacentlocations.clear();
-
-
-//                    if(grid[i][j]->moved)
-//                    {
-//                        grid[k][l]->move();
-//                        if(grid[k][l]->symbol == "O" && grid[k][l]->movecount == 3)
-//                        {
-//                            //create a new human
-//                            positionnum = 0;
-//                            positions.clear();
-//                            int c = 0;
-//                            int d = 0;
-//                            for(int m=-1;m<2;m++)
-//                            {
-//                                for(int n=-1;n<2;n++)
-//                                {
-//                                    positionnum++;
-//                                    if(k+m>=0 && k+m<GRIDSIZE && l+n>=0 && l+n<GRIDSIZE)
-//                                    {
-//                                        if(grid[k+m][l+n] == NULL)
-//                                        {
-//                                            positions.push_back(positionnum);
-//                                        }
-//                                    }
-//                                }
-//                            }
-//
-//                            random_shuffle ( positions.begin(), positions.end() );
-//
-//                            if(positions.size()>0)
-//                            {
-//                                switch (positions.front()) {
-//                                    case 1: {
-//                                        c = k - 1;
-//                                        d = l - 1;
-//                                        break;
-//                                    }
-//                                    case 2: {
-//                                        c = k - 1;
-//                                        break;
-//                                    }
-//                                    case 3: {
-//                                        c = k - 1;
-//                                        d = l + 1;
-//                                        break;
-//                                    }
-//                                    case 4: {
-//                                        d = l - 1;
-//                                        break;
-//                                    }
-//                                    case 6: {
-//                                        d = l + 1;
-//                                        break;
-//                                    }
-//                                    case 7: {
-//                                        c = k + 1;
-//                                        d = l - 1;
-//                                        break;
-//                                    }
-//                                    case 8: {
-//                                        c = k + 1;
-//                                        break;
-//                                    }
-//                                    case 9: {
-//                                        c = k + 1;
-//                                        d = l + 1;
-//                                        break;
-//                                    }
-//                                }
-//                            }
-//                            grid[c][d] = (Organism*)new Human(c,d);
-//                        }
-//                        else if(grid[i][j]->symbol == "Z")
-//                        {
-//                            Zombietocreate++;
-//                        }
-//                    }
                     }
                 }
             }
@@ -321,6 +401,8 @@ void movecity()
         }
     }
 }
+
+
 
 int main() {
 
