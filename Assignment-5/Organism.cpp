@@ -1,6 +1,7 @@
 //
-// Created by W0411567 on 12/2/2019.
+// Created by W0411567 on 12/4/2019.
 //
+
 #include "Organism.h"
 #include "GameSpecs.h"
 #include <string>
@@ -13,7 +14,8 @@ Organism::Organism()
     this->y = 0;
     this->moved = false;
     this->movecount = 0;
-    this->symbol = "X";
+    this->symbol = " ";
+    this->starvecount = 0;
 }
 
 Organism::Organism(int x, int y,bool moved, string symbol, int movecount)
@@ -23,6 +25,7 @@ Organism::Organism(int x, int y,bool moved, string symbol, int movecount)
     this->moved = moved;
     this->movecount = movecount;
     this->symbol = symbol;
+    this->starvecount = 0;
 }
 
 

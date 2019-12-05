@@ -1,27 +1,20 @@
 //
 // Created by W0411567 on 12/4/2019.
 //
-
 #ifndef NEWASSIGNMENT_5_HUMAN_H
 #define NEWASSIGNMENT_5_HUMAN_H
 
-
 #include "Organism.h"
-#include "City.h"
-#include <string>
 
-class City;
 class Human : public Organism
 {
 public:
     Human();
-    Human(int x, int y);
-    Human(int x, int y, int movecount);
+    Human(City *city, int x, int y);
 
     virtual ~Human();
-    void move();
+    void move(City *city);
+    void nextmovelocation(bool notneeded);
 };
-
-
 
 #endif //NEWASSIGNMENT_5_HUMAN_H

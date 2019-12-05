@@ -6,6 +6,7 @@
 #define NEWASSIGNMENT_5_GAMESPECS_H
 
 #include <string>
+
 using namespace std;
 
 const int GRIDSIZE = 20; // size of the square grid

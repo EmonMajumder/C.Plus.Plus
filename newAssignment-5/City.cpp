@@ -6,16 +6,7 @@
 #include "GameSpecs.h"
 #include <iostream>
 #include <vector>
-#include <array>
-#include "Human.h"
-#include "Zombie.h"
 #include "Organism.h"
-#include <time.h>
-#include <algorithm>
-#include <chrono>
-#include <random>
-#include <iostream>
-#include <windows.h>
 
 using namespace std;
 
@@ -52,11 +43,6 @@ Organism* City::getOrganism(int y, int x)
 void City::setOrganism(Organism *organism, int y, int x)
 {
     grid[y][x] = organism;
-}
-
-void City::move()
-{
-
 }
 
 ostream& operator<<(ostream &output, City &world)

@@ -4,10 +4,12 @@
 
 #ifndef NEWASSIGNMENT_5_ORGANISM_H
 #define NEWASSIGNMENT_5_ORGANISM_H
+
 #include <string>
 
-using namespace std;
+class City;
 
+using namespace std;
 class Organism
 {
 public:
@@ -15,6 +17,7 @@ public:
     int y;
     bool moved;
     string symbol;
+    City *city;
     int movecount;
     int starvecount;
 
@@ -22,10 +25,12 @@ public:
 
 public:
     Organism();
-    Organism( int x, int y,bool moved, string symbol, int movecount);
-
+    Organism(City *city, int x, int y);
     virtual ~Organism() = 0;
-    virtual void move() = 0;
+
+    virtual void move(City *city) = 0;
+    virtual void nextmovelocation(bool convert) = 0;
+
     //virtual void spawn() = 0;
     //virtual int getSpecies() = 0; //this could also be coded concrete here
     //virtual void getPosition() = 0;

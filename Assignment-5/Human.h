@@ -1,16 +1,27 @@
-#ifndef _Human_H
-#define _Human_H
+//
+// Created by W0411567 on 12/4/2019.
+//
+
+#ifndef NEWASSIGNMENT_5_HUMAN_H
+#define NEWASSIGNMENT_5_HUMAN_H
+
 
 #include "Organism.h"
+#include "City.h"
 #include <string>
 
+class City;
 class Human : public Organism
 {
 public:
-	Human(); 
-	Human(int x, int y);
-	virtual ~Human();
-	void move(int x, int y);
+    Human();
+    Human(int x, int y);
+    Human(int x, int y, int movecount);
+
+    virtual ~Human();
+    void move();
 };
 
-#endif
+
+
+#endif //NEWASSIGNMENT_5_HUMAN_H

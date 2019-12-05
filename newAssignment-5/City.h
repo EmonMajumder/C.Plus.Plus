@@ -12,13 +12,13 @@
 
 using namespace std;
 
+class Organism;
+
 class City
 {
+
 public:
     Organism* grid[GRIDSIZE][GRIDSIZE];
-    vector <int> positions;
-    vector<int> emptygrid;
-    int total;
 
 public:
     City();
@@ -26,10 +26,8 @@ public:
 
     Organism *getOrganism( int x, int y );
     void setOrganism( Organism *organism, int x, int y );
-    void move();
 
     friend ostream& operator<<( ostream &output, City &world );
-
 };
 
 

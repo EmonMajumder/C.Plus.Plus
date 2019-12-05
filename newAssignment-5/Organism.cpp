@@ -3,8 +3,6 @@
 //
 
 #include "Organism.h"
-#include "GameSpecs.h"
-#include <string>
 
 using namespace std;
 
@@ -14,28 +12,22 @@ Organism::Organism()
     this->y = 0;
     this->moved = false;
     this->movecount = 0;
-    this->symbol = " ";
+    this->symbol = "";
     this->starvecount = 0;
 }
 
-Organism::Organism(int x, int y,bool moved, string symbol, int movecount)
+Organism::Organism(City *city, int x, int y)
 {
     this->x = x;
     this->y = y;
-    this->moved = moved;
-    this->movecount = movecount;
-    this->symbol = symbol;
+    this->city = city;
+    this->moved = false;
+    this->movecount = 0;
+    this->symbol = "";
     this->starvecount = 0;
 }
 
-
-
 Organism::~Organism()
-{
-
-}
-
-void Organism::move()
 {
 
 }
