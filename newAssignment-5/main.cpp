@@ -3,11 +3,14 @@
 #include "City.h"
 #include "Organism.h"
 #include <string>
-#include <time.h>
+#include <ctime>
 #include <algorithm>
 #include <chrono>
 #include <random>
 #include <iostream>
+#include <windows.h>
+#include <thread>
+
 
 City city;
 int gridleft1 = GRIDSIZE*GRIDSIZE/4; //100
@@ -464,25 +467,90 @@ void convertZombie()
     }
 }
 
+void Col(int c)
+{
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, c);
+    return;
+}
+
 int main() {
 
     initializecity();
 
+    cout<< "Initial Setup of Layout" <<endl;
     cout << city <<endl;
 
-    int i = 0;
+    int i = 1;
 
-    while(i<200)
+    double counter = 0;
+    double pauseInterval = 3;
+    clock_t startTime = clock();
+    clock_t previousTime = startTime;
+
+    while(i<100)
     {
-        i++;
-        moveZombie();
-        addZombie();
-        moveHuman();
-        addhuman();
-        convertZombie();
-        clearmoved();
-        cout << city << "Round: " << i << endl;
-    }
+        startTime = clock();
+        counter+=startTime-previousTime;
+        previousTime = startTime;
+        if(counter>pauseInterval * CLOCKS_PER_SEC)
+        {
+            counter -=pauseInterval * CLOCKS_PER_SEC;
 
+            cout << "Round: " << i << endl;
+            moveZombie();
+            moveHuman();
+            convertZombie();
+            addZombie();
+            addhuman();
+            clearmoved();
+            //cout << city ;
+            int O = 0;
+            int Z = 0;
+
+            for(int i=0;i<GRIDSIZE;i++) {
+                for (int j = 0; j < GRIDSIZE; j++)
+                {
+                    if(j== 0)
+                    {
+                        Col(7);
+                        cout << "|";
+                    }
+
+                    if(city.getOrganism(i, j) != nullptr)
+                    {
+                        if(city.getOrganism(i,j)->symbol == "O")
+                        {
+                            Col(3);
+                            cout << city.getOrganism(i,j)->symbol;
+
+                            Col(7);
+                            cout << "|";
+
+                            O++;
+                        }
+                        else if(city.getOrganism(i,j)->symbol == "Z")
+                        {
+                            Col(12);
+                            cout << city.getOrganism(i,j)->symbol;
+
+                            Col(7);
+                            cout << "|";
+
+                            Z++;
+                        }
+                    }
+                    else
+                    {
+                        cout << " " << "|";
+                    }
+                }
+                cout << "" <<endl;
+            }
+            cout << "O =" << O << "   " << "Z =" << Z << endl;
+            i++;
+        }
+    }
     return  0;
 }

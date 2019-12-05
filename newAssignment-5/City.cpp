@@ -14,6 +14,8 @@
 #include <algorithm>
 #include <chrono>
 #include <random>
+#include <iostream>
+#include <windows.h>
 
 using namespace std;
 
@@ -72,11 +74,20 @@ ostream& operator<<(ostream &output, City &world)
 
             if(world.getOrganism(i, j) != nullptr)
             {
-                output << world.getOrganism(i,j)->symbol << "|";
                 if(world.getOrganism(i,j)->symbol == "O")
+                {
+                    output << world.getOrganism(i,j)->symbol;
+                    output << "|";
+
                     O++;
-                else
+                }
+                else if(world.getOrganism(i,j)->symbol == "Z")
+                {
+                    output << world.getOrganism(i,j)->symbol;
+                    output << "|";
+
                     Z++;
+                }
             }
             else
             {
