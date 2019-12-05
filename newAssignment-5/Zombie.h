@@ -15,6 +15,7 @@ public:
     Zombie();
     Zombie(int x, int y);
     Zombie(int x, int y, int movecount);
+    Zombie(int x, int y, int movecount, int starvecount);
     virtual ~Zombie();
     void move();
 };

@@ -181,15 +181,13 @@ int *nextmovelocationforhuman(int x,int y)
     return location;
 }
 
-int *nextmovelocationforzombie(int x, int y)
+int *nextmovelocationforzombie(int x, int y, bool convert)
 {
     vector<int> abailableadjacentlocations;
-    vector<int> abailableadjacentlocationswithhuman;
     int adjacentlocationnum = 0;
     static int location[2];
     location[0] = GRIDSIZE+1;
     location[1] = GRIDSIZE+1;
-
 
     for (int m = -1; m < 2; m++)
     {
@@ -199,9 +197,36 @@ int *nextmovelocationforzombie(int x, int y)
 
             if (x + m >= 0 && x + m < GRIDSIZE && y + n >= 0 && y + n < GRIDSIZE)
             {
-                if (city.getOrganism(x + m, y + n) == nullptr)
+                if (city.getOrganism(x + m, y + n) != nullptr)
                 {
-                    abailableadjacentlocations.push_back(adjacentlocationnum);
+                    if(city.getOrganism(x + m, y + n)->symbol == "O" )
+                    {
+                        abailableadjacentlocations.push_back(adjacentlocationnum);
+                    }
+                }
+            }
+        }
+    }
+
+    if(!convert)
+    {
+        if(abailableadjacentlocations.empty())
+        {
+            adjacentlocationnum = 0;
+
+            for (int m = -1; m < 2; m++)
+            {
+                for (int n = -1; n < 2; n++)
+                {
+                    adjacentlocationnum++;
+
+                    if (x + m >= 0 && x + m < GRIDSIZE && y + n >= 0 && y + n < GRIDSIZE)
+                    {
+                        if (city.getOrganism(x + m, y + n) == nullptr)
+                        {
+                            abailableadjacentlocations.push_back(adjacentlocationnum);
+                        }
+                    }
                 }
             }
         }
@@ -256,8 +281,6 @@ int *nextmovelocationforzombie(int x, int y)
         }
     }
 
-
-
     abailableadjacentlocations.clear();
 
     return location;
@@ -265,100 +288,94 @@ int *nextmovelocationforzombie(int x, int y)
 
 void addhuman()
 {
-    if(grid[i][j]->moved)
-    {
-        grid[k][l]->move();
-        if(grid[k][l]->symbol == "O" && grid[k][l]->movecount == 3)
-        {
-            //create a new human
-            positionnum = 0;
-            positions.clear();
-            int c = 0;
-            int d = 0;
-            for(int m=-1;m<2;m++)
-            {
-                for(int n=-1;n<2;n++)
-                {
-                    positionnum++;
-                    if(k+m>=0 && k+m<GRIDSIZE && l+n>=0 && l+n<GRIDSIZE)
-                    {
-                        if(grid[k+m][l+n] == NULL)
-                        {
-                            positions.push_back(positionnum);
-                        }
-                    }
-                }
-            }
-
-            random_shuffle ( positions.begin(), positions.end() );
-
-            if(positions.size()>0)
-            {
-                switch (positions.front()) {
-                    case 1: {
-                        c = k - 1;
-                        d = l - 1;
-                        break;
-                    }
-                    case 2: {
-                        c = k - 1;
-                        break;
-                    }
-                    case 3: {
-                        c = k - 1;
-                        d = l + 1;
-                        break;
-                    }
-                    case 4: {
-                        d = l - 1;
-                        break;
-                    }
-                    case 6: {
-                        d = l + 1;
-                        break;
-                    }
-                    case 7: {
-                        c = k + 1;
-                        d = l - 1;
-                        break;
-                    }
-                    case 8: {
-                        c = k + 1;
-                        break;
-                    }
-                    case 9: {
-                        c = k + 1;
-                        d = l + 1;
-                        break;
-                    }
-                }
-            }
-            grid[c][d] = (Organism*)new Human(c,d);
-        }
-        else if(grid[i][j]->symbol == "Z")
-        {
-            Zombietocreate++;
-        }
-    }
-}
-
-void movecity()
-{
-    gridlocationnum =0;
     int newIposition = 0;
     int newJposition = 0;
-    int counter = 0;
-    int humantocreate = 0;
-    int Zombietocreate = 0;
     int *nextmove;
-
 
     for(int i=0; i < GRIDSIZE ; i++)
     {
         for (int j = 0; j < GRIDSIZE; j++)
         {
-            gridlocationnum++;
+            if(city.getOrganism(i,j)!= nullptr)
+            {
+                if(city.getOrganism(i,j)->moved && city.getOrganism(i,j)->symbol == "O" && city.getOrganism(i,j)->movecount == 3)
+                {
+                    nextmove = nextmovelocationforhuman(i,j);
+                    newIposition = *(nextmove+0);
+                    newJposition = *(nextmove+1);
 
+                    if(newIposition<GRIDSIZE)
+                    {
+                        city.setOrganism((Organism*)new Human(newIposition,newJposition),newIposition,newJposition);
+                    }
+
+                    city.getOrganism(i,j)->movecount = 0;
+                }
+            }
+            else
+            {
+                emptygrids.push_back(gridlocationnum);
+            }
+        }
+    }
+}
+
+void addZombie()
+{
+    int newIposition = 0;
+    int newJposition = 0;
+    int *nextmove;
+
+    for(int i=0; i < GRIDSIZE ; i++)
+    {
+        for (int j = 0; j < GRIDSIZE; j++)
+        {
+            if(city.getOrganism(i,j)!= nullptr)
+            {
+                if(city.getOrganism(i,j)->moved && city.getOrganism(i,j)->symbol == "Z" && city.getOrganism(i,j)->movecount >= 8)
+                {
+                    nextmove = nextmovelocationforzombie(i,j,true);
+                    newIposition = *(nextmove+0);
+                    newJposition = *(nextmove+1);
+
+                    if(newIposition<GRIDSIZE)
+                    {
+                        city.setOrganism((Organism *) new Zombie(newIposition, newJposition), newIposition, newJposition);
+                        city.getOrganism(i,j)->movecount = 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void clearmoved()
+{
+    for(int i=0; i < GRIDSIZE ; i++)
+    {
+        for (int j = 0; j < GRIDSIZE; j++)
+        {
+            if(city.getOrganism(i,j)!= nullptr)
+            {
+                if(city.getOrganism(i,j)->moved)
+                {
+                    city.getOrganism(i,j)->moved = false;
+                }
+            }
+        }
+    }
+}
+void moveHuman()
+{
+    gridlocationnum = 0;
+    int newIposition = 0;
+    int newJposition = 0;
+    int *nextmove;
+
+    for(int i=0; i < GRIDSIZE ; i++)
+    {
+        for (int j = 0; j < GRIDSIZE; j++)
+        {
             if(city.getOrganism(i,j)!= nullptr)
             {
                 if(!city.getOrganism(i,j)->moved)
@@ -374,35 +391,78 @@ void movecity()
                             city.getOrganism(newIposition,newJposition)->moved = true;
                             city.setOrganism(nullptr,i,j);
                         }
-                    }
-                    else if(city.getOrganism(i,j)->symbol == "Z")
-                    {
-                        nextmove = nextmovelocationforzombie(i,j);
-                        newIposition = *(nextmove+0);
-                        newJposition = *(nextmove+1);
-                        city.setOrganism((Organism*)new Zombie(newIposition,newJposition,city.getOrganism(i,j)->movecount+1),newIposition,newJposition);
-                        city.setOrganism(nullptr,i,j);
+                        else
+                        {
+                            city.getOrganism(i,j)->movecount+=1;
+                        }
                     }
                 }
             }
-            else
-            {
-                emptygrids.push_back(gridlocationnum);
-            }
-
-//            this->grid[i][j]->move();
-//            if(grid[i][j]->moved)
-//            {
-//                grid[grid[i][j]->x][grid[i][j]->y] = grid[i][j];
-//                grid[i][j] = nullptr;
-//            }
-
-            counter++;
         }
     }
 }
 
+void moveZombie()
+{
+    int newIposition = 0;
+    int newJposition = 0;
+    int *nextmove;
 
+    for(int i=0; i < GRIDSIZE ; i++)
+    {
+        for (int j = 0; j < GRIDSIZE; j++)
+        {
+            if(city.getOrganism(i,j)!= nullptr)
+            {
+                if(!city.getOrganism(i,j)->moved)
+                {
+                    if(city.getOrganism(i,j)->symbol == "Z")
+                    {
+                        nextmove = nextmovelocationforzombie(i,j, false);
+                        newIposition = *(nextmove+0);
+                        newJposition = *(nextmove+1);
+                        if(newIposition<GRIDSIZE)
+                        {
+                            if(city.getOrganism(newIposition, newJposition) != nullptr)
+                            {
+                                city.setOrganism((Organism *) new Zombie(newIposition, newJposition,city.getOrganism(i, j)->movecount + 1),newIposition, newJposition);
+                            }
+                            else
+                            {
+                                city.setOrganism((Organism *) new Zombie(newIposition, newJposition,city.getOrganism(i, j)->movecount + 1,city.getOrganism(i, j)->starvecount + 1),newIposition, newJposition);
+                            }
+                            city.getOrganism(newIposition,newJposition)->moved = true;
+                            city.setOrganism(nullptr, i, j);
+                        }
+                        else
+                        {
+                            city.getOrganism(i,j)->movecount+=1;
+                            city.getOrganism(i,j)->starvecount+=1;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+void convertZombie()
+{
+    for(int i=0; i < GRIDSIZE ; i++)
+    {
+        for (int j = 0; j < GRIDSIZE; j++)
+        {
+            if(city.getOrganism(i,j)!= nullptr)
+            {
+                if(city.getOrganism(i,j)->symbol == "Z" && city.getOrganism(i,j)->starvecount == 3)
+                {
+                    city.setOrganism((Organism *) new Human(i, j), i, j);
+                }
+            }
+        }
+    }
+}
 
 int main() {
 
@@ -412,12 +472,16 @@ int main() {
 
     int i = 0;
 
-    while(i<10)
+    while(i<200)
     {
-        movecity();
-        cout << city << endl;
-
         i++;
+        moveZombie();
+        addZombie();
+        moveHuman();
+        addhuman();
+        convertZombie();
+        clearmoved();
+        cout << city << "Round: " << i << endl;
     }
 
     return  0;

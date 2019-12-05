@@ -16,6 +16,7 @@ Zombie::Zombie()
     this->y = 0;
     this->moved = false;
     this->movecount = 0;
+    this->starvecount = 0;
     this->symbol = ZOMBIE_CH;
 }
 
@@ -25,6 +26,7 @@ Zombie::Zombie(int x, int y)
     this->y = y;
     this->moved = false;
     this->movecount = 0;
+    this->starvecount = 0;
     this->symbol = ZOMBIE_CH;
 }
 
@@ -33,7 +35,18 @@ Zombie::Zombie(int x, int y, int movecount)
     this->x = x;
     this->y = y;
     this->moved = false;
-    this->movecount = 0;
+    this->movecount = movecount;
+    this->starvecount = 0;
+    this->symbol = ZOMBIE_CH;
+}
+
+Zombie::Zombie(int x, int y, int movecount, int starvecount)
+{
+    this->x = x;
+    this->y = y;
+    this->moved = false;
+    this->movecount = movecount;
+    this->starvecount = starvecount;
     this->symbol = ZOMBIE_CH;
 }
 

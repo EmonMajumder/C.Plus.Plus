@@ -15,6 +15,7 @@ Organism::Organism()
     this->moved = false;
     this->movecount = 0;
     this->symbol = " ";
+    this->starvecount = 0;
 }
 
 Organism::Organism(int x, int y,bool moved, string symbol, int movecount)
@@ -24,6 +25,7 @@ Organism::Organism(int x, int y,bool moved, string symbol, int movecount)
     this->moved = moved;
     this->movecount = movecount;
     this->symbol = symbol;
+    this->starvecount = 0;
 }
 
 

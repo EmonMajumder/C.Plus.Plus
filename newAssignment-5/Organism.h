@@ -4,22 +4,19 @@
 
 #ifndef NEWASSIGNMENT_5_ORGANISM_H
 #define NEWASSIGNMENT_5_ORGANISM_H
-
 #include <string>
 
-
 using namespace std;
-
 
 class Organism
 {
 public:
-
     int x;
     int y;
     bool moved;
     string symbol;
     int movecount;
+    int starvecount;
 
     //enum { 1,2,3,4,5,6,7,8,9 };
 
