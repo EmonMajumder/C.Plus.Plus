@@ -34,6 +34,8 @@ void resetgridinitializationvalues()
 //Initialize the city plot with human and Zombie.
 void initializecity()
 {
+    int probabilityratiohuman = 4;
+    int probabilityratiozombie = 12;
     srand(time(NULL));
 
     for (int i = 0;i < GRIDSIZE;i++)
@@ -51,14 +53,14 @@ void initializecity()
                 {
                     if (humanleft1 < gridleft1)
                     {
-                        if ((rand() % 7 + 1) == 3)
+                        if ((rand() % probabilityratiohuman + 1) == 3)
                         {
                             city->setOrganism((Organism*)new Human(city, i, j), i, j);
                             humanleft1--;
                         }
                         else if (zombieleft1 > 0)
                         {
-                            if ((rand() % 10 + 1) == 2)
+                            if ((rand() % probabilityratiozombie + 1) == 2)
                             {
                                 city->setOrganism((Organism*)new Zombie(city, i, j), i, j);
                                 zombieleft1--;
@@ -79,14 +81,14 @@ void initializecity()
                 {
                     if (humanleft2 < gridleft2)
                     {
-                        if ((rand() % 7 + 1) == 4)
+                        if ((rand() % probabilityratiohuman + 1) == 4)
                         {
                             city->setOrganism((Organism*)new Human(city, i, j), i, j);
                             humanleft2--;
                         }
                         else if (zombieleft2 > 0)
                         {
-                            if ((rand() % 10 + 1) == 3)
+                            if ((rand() % probabilityratiozombie + 1) == 3)
                             {
                                 city->setOrganism((Organism*)new Zombie(city, i, j), i, j);
                                 zombieleft2--;
@@ -267,14 +269,14 @@ int main() {
     cout << "Initial Setup of Layout" << endl;
 
     //Console output of city grid using a operator modifier.
-    cout << city << endl;
+    //cout << city << endl;
 
-    int i = 1;
+    int r = 1;
     int O = 1;
     int Z = 1;
 
     //while loop for the simulation.
-    while (O > 0 && Z > 0 && i<ITERATIONS)
+    while (O > 0 && Z > 0 && r<ITERATIONS)
     {
         Col(7);
 
@@ -287,7 +289,7 @@ int main() {
         {
             counter -= pauseInterval * CLOCKS_PER_SEC;
 
-            cout << "Round: " << i << endl;
+            cout << "Round: " << r << endl;
 
             O = 0;
             Z = 0;
@@ -341,7 +343,7 @@ int main() {
 
             cout << "O =" << O << "                           " << "Z =" << Z << endl;
 
-            i++;
+            r++;
 
             moveZombie();
 

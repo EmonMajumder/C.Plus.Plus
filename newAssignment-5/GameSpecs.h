@@ -12,16 +12,16 @@
 using namespace std;
 
 const int GRIDSIZE = 20; // size of the square grid
-const int HUMAN_STARTCOUNT = 60; // inital Humans
-const int ZOMBIE_STARTCOUNT = 12; //initial Zombie count
+const int HUMAN_STARTCOUNT = 100; // inital Humans
+const int ZOMBIE_STARTCOUNT = 5; //initial Zombie count
 const int HUMAN_BREED = 3; // steps until an Human breeds
 const int ZOMBIE_BREED = 8; // steps until an Zombie breeds
 const int ZOMBIE_STARVE = 3; // steps until a Zombie starves and converts back
 const string HUMAN_CH = "O";//79 "o"// ascii Human
 const char SPACE_CH = 32; // " " ascii space
 const string ZOMBIE_CH = "Z";//90 "Z"// ascii zombie
-const double PAUSE_SECONDS = 1; // pause between steps
-const int ITERATIONS = 1000; // max number of steps
+const double PAUSE_SECONDS = 0; // pause between steps
+const int ITERATIONS = 110; // max number of steps
 const int INIHUMANCOUNT = 50;
 const int INIZOMBIECOUNT = 50;
 
