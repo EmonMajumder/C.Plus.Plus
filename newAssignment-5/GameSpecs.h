@@ -7,6 +7,8 @@
 
 #include <string>
 
+//All simulation constants are defined here.
+
 using namespace std;
 
 const int GRIDSIZE = 20; // size of the square grid
@@ -18,7 +20,7 @@ const int ZOMBIE_STARVE = 3; // steps until a Zombie starves and converts back
 const string HUMAN_CH = "O";//79 "o"// ascii Human
 const char SPACE_CH = 32; // " " ascii space
 const string ZOMBIE_CH = "Z";//90 "Z"// ascii zombie
-const double PAUSE_SECONDS = .09; // pause between steps
+const double PAUSE_SECONDS = 1; // pause between steps
 const int ITERATIONS = 1000; // max number of steps
 const int INIHUMANCOUNT = 50;
 const int INIZOMBIECOUNT = 50;
@@ -34,7 +36,7 @@ const int INIZOMBIECOUNT = 50;
 //7  = white regular		//16+ = solid blocks
 //8  = white pale
 
-const int HUMAN_COLOR = 3; // turquoise
-const int ZOMBIE_COLOR = 14; // bright yellow
+const int HUMAN_COLOR = 2;
+const int ZOMBIE_COLOR = 4;
 
 #endif //NEWASSIGNMENT_5_GAMESPECS_H

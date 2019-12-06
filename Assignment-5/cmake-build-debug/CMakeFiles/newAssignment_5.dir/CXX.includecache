@@ -1,0 +1,124 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/i/C++/C++ Repository/Assignment-5/City.cpp
+City.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/City.h
+GameSpecs.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/GameSpecs.h
+iostream
+-
+vector
+-
+array
+-
+Human.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/Human.h
+Zombie.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/Zombie.h
+Organism.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/Organism.h
+time.h
+-
+algorithm
+-
+chrono
+-
+random
+-
+iostream
+-
+windows.h
+-
+
+/cygdrive/i/C++/C++ Repository/Assignment-5/City.h
+iostream
+-
+vector
+-
+GameSpecs.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/GameSpecs.h
+Organism.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/Organism.h
+
+/cygdrive/i/C++/C++ Repository/Assignment-5/GameSpecs.h
+string
+-
+
+/cygdrive/i/C++/C++ Repository/Assignment-5/Human.cpp
+Human.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/Human.h
+GameSpecs.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/GameSpecs.h
+City.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/City.h
+vector
+-
+algorithm
+-
+
+/cygdrive/i/C++/C++ Repository/Assignment-5/Human.h
+Organism.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/Organism.h
+City.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/City.h
+string
+-
+
+/cygdrive/i/C++/C++ Repository/Assignment-5/Organism.cpp
+Organism.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/Organism.h
+GameSpecs.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/GameSpecs.h
+string
+-
+
+/cygdrive/i/C++/C++ Repository/Assignment-5/Organism.h
+string
+-
+
+/cygdrive/i/C++/C++ Repository/Assignment-5/Zombie.cpp
+Zombie.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/Zombie.h
+GameSpecs.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/GameSpecs.h
+vector
+-
+algorithm
+-
+
+/cygdrive/i/C++/C++ Repository/Assignment-5/Zombie.h
+Organism.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/Organism.h
+
+/cygdrive/i/C++/C++ Repository/Assignment-5/main.cpp
+Human.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/Human.h
+Zombie.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/Zombie.h
+City.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/City.h
+Organism.h
+/cygdrive/i/C++/C++ Repository/Assignment-5/Organism.h
+string
+-
+ctime
+-
+algorithm
+-
+chrono
+-
+random
+-
+iostream
+-
+windows.h
+-
+thread
+-
+

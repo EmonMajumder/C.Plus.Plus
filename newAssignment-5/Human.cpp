@@ -1,6 +1,3 @@
-//
-// Created by W0411567 on 12/4/2019.
-//
 #include "Human.h"
 #include "GameSpecs.h"
 #include "City.h"
@@ -10,6 +7,7 @@
 
 using namespace std;
 
+//Default constructor
 Human::Human()
 {
     this->x = 0;
@@ -19,6 +17,7 @@ Human::Human()
     this->symbol = HUMAN_CH;
 }
 
+//Constructor
 Human::Human(City *city, int x, int y)
 {
     this->x = x;
@@ -34,6 +33,7 @@ Human::~Human()
 
 }
 
+//Function to determine next move location
 void Human::nextmovelocation(bool notneeded)
 {
     vector<int> abailableadjacentlocations;
@@ -57,6 +57,7 @@ void Human::nextmovelocation(bool notneeded)
 
     if (!abailableadjacentlocations.empty())
     {
+        //Shuffle the vector to randomly select move location
         unsigned seed = chrono::system_clock::now().time_since_epoch().count();//create random seed using system clock
         shuffle(abailableadjacentlocations.begin(), abailableadjacentlocations.end(), default_random_engine(seed));
 
@@ -72,7 +73,7 @@ void Human::nextmovelocation(bool notneeded)
                 break;
             }
             case 3: {
-                x= x - 1;
+                x = x - 1;
                 y = y + 1;
                 break;
             }
@@ -104,9 +105,11 @@ void Human::nextmovelocation(bool notneeded)
         }
     }
 
+    //clear the vector.
     abailableadjacentlocations.clear();
 }
 
+//Move human to a new position.
 void Human::move(City *city)
 {
     this->city = city;
@@ -114,12 +117,12 @@ void Human::move(City *city)
     int j = y;
 
     nextmovelocation(true);
-    movecount+=1;
+    movecount += 1;
     moved = true;
 
-    city->setOrganism((Organism*)this,x,y);
+    city->setOrganism((Organism*)this, x, y);
 
-    if(x != i || y != j)
+    if (x != i || y != j)
     {
         city->setOrganism(nullptr, i, j);
     }

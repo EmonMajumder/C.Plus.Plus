@@ -10,6 +10,7 @@
 
 using namespace std;
 
+//Default constructor
 Zombie::Zombie()
 {
     this->x = 0;
@@ -20,6 +21,7 @@ Zombie::Zombie()
     this->symbol = ZOMBIE_CH;
 }
 
+//Constructor
 Zombie::Zombie(City *city, int x, int y)
 {
     this->x = x;
@@ -36,6 +38,7 @@ Zombie::~Zombie()
 
 }
 
+//Function to determine next move location
 void Zombie::nextmovelocation(bool convert)
 {
     vector<int> abailableadjacentlocations;
@@ -49,9 +52,9 @@ void Zombie::nextmovelocation(bool convert)
 
             if (x + m >= 0 && x + m < GRIDSIZE && y + n >= 0 && y + n < GRIDSIZE)
             {
-                if (city->getOrganism(x+m,y+n)  != nullptr)
+                if (city->getOrganism(x + m, y + n) != nullptr)
                 {
-                    if(city->getOrganism(x+m,y+n)->symbol == "O" )
+                    if (city->getOrganism(x + m, y + n)->symbol == "O")
                     {
                         abailableadjacentlocations.push_back(adjacentlocationnum);
                     }
@@ -60,9 +63,9 @@ void Zombie::nextmovelocation(bool convert)
         }
     }
 
-    if(!convert)
+    if (!convert)
     {
-        if(abailableadjacentlocations.empty())
+        if (abailableadjacentlocations.empty())
         {
             adjacentlocationnum = 0;
 
@@ -74,7 +77,7 @@ void Zombie::nextmovelocation(bool convert)
 
                     if (x + m >= 0 && x + m < GRIDSIZE && y + n >= 0 && y + n < GRIDSIZE)
                     {
-                        if (city->getOrganism(x+m,y+n) == nullptr)
+                        if (city->getOrganism(x + m, y + n) == nullptr)
                         {
                             abailableadjacentlocations.push_back(adjacentlocationnum);
                         }
@@ -86,6 +89,7 @@ void Zombie::nextmovelocation(bool convert)
 
     if (!abailableadjacentlocations.empty())
     {
+        //Shuffle the vector to randomly select move location
         unsigned seed = chrono::system_clock::now().time_since_epoch().count();//create random seed using system clock
         shuffle(abailableadjacentlocations.begin(), abailableadjacentlocations.end(), default_random_engine(seed));
 
@@ -132,9 +136,12 @@ void Zombie::nextmovelocation(bool convert)
             }
         }
     }
+
+    //clear the vector.
     abailableadjacentlocations.clear();
 }
 
+//Move Zombie to a new position.
 void Zombie::move(City *city)
 {
     this->city = city;
@@ -147,17 +154,18 @@ void Zombie::move(City *city)
     movecount++;
     starvecount++;
 
-    if(city->getOrganism(x, y) != nullptr)
+    if (city->getOrganism(x, y) != nullptr)
     {
         starvecount = 0;
     }
 
-    city->setOrganism((Organism *) this, x, y);
+    city->setOrganism((Organism *)this, x, y);
 
-    if(x != i || y != j)
+    if (x != i || y != j)
     {
         city->setOrganism(nullptr, i, j);
     }
 
 }
+
 

@@ -17,18 +17,23 @@ class Organism;
 class City
 {
 
-public:
+private:
     Organism* grid[GRIDSIZE][GRIDSIZE];
 
 public:
     City();
+
+    //Destructor
     virtual ~City();
 
-    Organism *getOrganism( int x, int y );
-    void setOrganism( Organism *organism, int x, int y );
+    //Getter
+    Organism *getOrganism(int x, int y);
 
-    friend ostream& operator<<( ostream &output, City &world );
+    //Setter
+    void setOrganism(Organism *organism, int x, int y);
+
+    //Operator overloading.
+    friend ostream& operator<<(ostream &output, City &world);
 };
-
 
 #endif //NEWASSIGNMENT_5_CITY_H
