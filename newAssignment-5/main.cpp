@@ -310,8 +310,8 @@ int main() {
 
                             cout << city->getOrganism(i, j)->symbol;
 
-                            /*Col(7);
-                            cout << "|";*/
+                            //Col(7);
+                            //cout << "|";
                             cout << " ";
 
                             O++;
@@ -322,8 +322,8 @@ int main() {
 
                             cout << city->getOrganism(i, j)->symbol;
 
-                            /*Col(7);
-                            cout << "|";*/
+                            //Col(7);
+                            //cout << "|";
                             cout << " ";
 
                             Z++;
